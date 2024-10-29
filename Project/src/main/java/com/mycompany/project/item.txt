@@ -1,0 +1,15 @@
+1,Chicken Combo for One,Combo,1,01-01-2023,89000
+2,Chicken Combo for Two,Combo,1,01-01-2023,159000
+3,Garlic Butter & Herb Chicken,Special,1,01-02-2023,99000
+4,Spaghetti Combo,Combo,1,01-02-2023,79000
+5,Classic Chicken Burger,Fast Food,1,01-03-2023,45000
+6,Chicken Wrap,Fast Food,1,01-03-2023,59000
+7,French Fries,Side,1,01-01-2023,30000
+8,Coke,Drink,1,01-01-2023,15000
+9,Sprite,Drink,1,01-01-2023,15000
+10,Orange Juice,Drink,1,01-01-2023,20000
+11,Lemon Iced Tea,Drink,1,01-01-2023,18000
+12,Family Combo (4 pcs),Combo,1,01-01-2023,249000
+13,Garlic Rice,Side,1,01-01-2023,25000
+14,Peach Tea,Drink,1,01-01-2023,18000
+15,Bottled Water,Drink,1,01-01-2023,10000
