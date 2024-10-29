@@ -1,0 +1,10 @@
+1 | Banh Canh Ca Nuc | 15K
+2 | Banh Canh Ca Loc | 18K
+3 | Banh Canh Ghe    | 20K
+4 | Banh Canh Gio Heo| 25K
+5 | Banh Canh Cha Ca | 13K
+6 | My Quang Ga | 20K
+7 | My Quang Tom Thit | 20K
+8 | My Quang Ech | 19K
+9 | My Quang Ca Loc | 25K
+10| My Quang Thap Cam | 30K
