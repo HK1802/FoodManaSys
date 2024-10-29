@@ -26,7 +26,7 @@ public class ItemList_View {
         try(BufferedReader br = new BufferedReader(new FileReader(file))){
             String line;
             while((line = br.readLine()) != null){
-                String[] part = line.split(",");
+                String[] part = line.split("\\|");
             }
             
             
@@ -76,9 +76,8 @@ public class ItemList_View {
         }
     } // Hiện thị giá món ăn do người tự chọn
     
-    public void sortValue(){
-        
-//        Collections.sort(list.getList());
+    public void sortValue(){        
+        Collections.sort(list.getList());
     }
     
     

@@ -10,8 +10,8 @@ import java.util.Date;
  *
  * @author OS
  */
-public class Item {
-    private int numberItem;
+public class Item implements Comparable<Item> {
+    private int IDItem;
     private String Name;
     private String type; // kiểu món ăn: sáng, tối, đặc biệt
     private int Quantity; // số lượng
@@ -21,8 +21,8 @@ public class Item {
     public Item() {
     }
 
-    public Item(int numberItem, String Name, String type, int Quantity, Date Release, int value) {
-        this.numberItem = numberItem;
+    public Item(int IDItem, String Name, String type, int Quantity, Date Release, int value) {
+        this.IDItem = IDItem;
         this.Name = Name;
         this.type = type;
         this.Quantity = Quantity;
@@ -30,18 +30,29 @@ public class Item {
         this.value = value;
     }
 
+    
+
+    @Override
+    public int compareTo(Item other){
+        return Integer.compare(this.value, other.value);
+    }
+
     @Override
     public String toString() {
-        return "Item{" + "numberItem=" + numberItem + ", Name=" + Name + ", type=" + type + ", Quantity=" + Quantity + ", Release=" + Release + ", value=" + value + '}';
+        return "Item{" + "IDItem=" + IDItem + ", Name=" + Name + ", type=" + type + ", Quantity=" + Quantity + ", Release=" + Release + ", value=" + value + '}';
     }
 
-    public int getNumberItem() {
-        return numberItem;
+    
+    
+    public int getIDItem() {
+        return IDItem;
     }
 
-    public void setNumberItem(int numberItem) {
-        this.numberItem = numberItem;
+    public void setIDItem(int IDItem) {
+        this.IDItem = IDItem;
     }
+    
+    
 
     
 
