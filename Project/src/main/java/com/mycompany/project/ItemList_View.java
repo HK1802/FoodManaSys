@@ -80,6 +80,50 @@ public class ItemList_View {
         
 //        Collections.sort(list.getList());
     }
-    
-    
+    public void updatePriceById() {
+    int itemId = -1;
+    boolean validInput = false;
+
+    // Loop until a valid integer is provided
+    while (!validInput) {
+        System.out.println("Input the ID of the item to update its price: ");
+        try {
+            itemId = DataInput.inputInt(); // Assume this method reads an int input
+            validInput = true; // If we reach here, input was valid
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter a valid integer for the item ID.");
+        }
+    }
+
+    // Now we have a valid itemId, we can search for the item
+    boolean found = false;
+    for (Item item : list.getList()) {
+        if (item.getId() == itemId) {
+            found = true; // Item found
+            System.out.println("Current price of " + item.getName() + " is: " + item.getValue());
+            System.out.println("Enter new price: ");
+            int newPrice = -1;
+            validInput = false;
+
+            // Loop until a valid integer is provided for the new price
+            while (!validInput) {
+                try {
+                    newPrice = DataInput.inputInt(); // Assume this method reads an int input
+                    validInput = true; // If we reach here, input was valid
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input! Please enter a valid integer for the new price.");
+                }
+            }
+
+            // Update the price
+            item.setValue(newPrice);
+            System.out.println("Price updated successfully!");
+            break; // Exit the loop after updating
+        }
+    }
+
+    if (!found) {
+        System.out.println("Item with ID " + itemId + " not found.");
+    }
 }
+    
