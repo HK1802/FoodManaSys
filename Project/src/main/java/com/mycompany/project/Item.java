@@ -4,25 +4,26 @@
  */
 package com.mycompany.project;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
  *
  * @author OS
  */
-public class Item {
-    private int numberItem;
-    private String Name;
-    private String type; // kiểu món ăn: sáng, tối, đặc biệt
+public class Item implements Comparable<Item> {
+    private int IDItem; // ID của món ăn
+    private String Name; // Tên món ăn
+    private String type; // kiểu món ăn: Fast Food, Special, Drink
     private int Quantity; // số lượng
-    private Date Release;
+    private Date Release; // Ngày ra mắt(dd-MM-yyyy)
     private int value; // Giá thành
 
     public Item() {
     }
 
-    public Item(int numberItem, String Name, String type, int Quantity, Date Release, int value) {
-        this.numberItem = numberItem;
+    public Item(int IDItem, String Name, String type, int Quantity, Date Release, int value) {
+        this.IDItem = IDItem;
         this.Name = Name;
         this.type = type;
         this.Quantity = Quantity;
@@ -30,18 +31,30 @@ public class Item {
         this.value = value;
     }
 
+    
+
+    @Override
+    public int compareTo(Item other){
+        return Integer.compare(this.value, other.value);
+    }
+
     @Override
     public String toString() {
-        return "Item{" + "numberItem=" + numberItem + ", Name=" + Name + ", type=" + type + ", Quantity=" + Quantity + ", Release=" + Release + ", value=" + value + '}';
+        SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
+        return "| " + IDItem + " | " + Name + " | " + type + " |  " + Quantity + "  | " + SDF.format(Release) + " |  " + value + "  |";
     }
 
-    public int getNumberItem() {
-        return numberItem;
+    
+    
+    public int getIDItem() {
+        return IDItem;
     }
 
-    public void setNumberItem(int numberItem) {
-        this.numberItem = numberItem;
+    public void setIDItem(int IDItem) {
+        this.IDItem = IDItem;
     }
+    
+    
 
     
 

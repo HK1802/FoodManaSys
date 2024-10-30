@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author OS
  */
 public class DataInput {
-    public static String inputString(){
+    public static String inputString(){ // Nhập hàm string không bỏ trống
         Scanner sc= new Scanner(System.in);
         while (true){
             String input = sc.nextLine();
@@ -25,7 +25,7 @@ public class DataInput {
         }        
     }
     
-    public static int inputInt(){
+    public static int inputInt(){ // Dùng để sửa lỗi integer mà nhập string
         Scanner sc = new Scanner(System.in);
         while(true){
             try{
