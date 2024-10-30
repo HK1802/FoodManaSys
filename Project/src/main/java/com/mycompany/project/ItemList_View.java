@@ -27,11 +27,32 @@ public class ItemList_View {
             String line;
             while((line = br.readLine()) != null){
                 String[] part = line.split(",");
+                try {
+                    Item item = new Item(
+                    Integer.parseInt(part[0]),
+                    part[1],
+                    part[2],
+                    Integer.parseInt(part[3]),
+                    SDF.parse.(part[4]),
+                    Integer.parseInt(part[5]));
+                    list.add(item);
+                } catch (NumberFormatException | ParseException e ) {
+                    System.out.println("Error parsing item: "+e.getMessage());
+                }
             }
-            
             
         } catch (IOException ex) {
             Logger.getLogger(ItemList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+ public  void addSpecialItem(String name, int quantity, String releaseDate, int value) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Item specialItem = new Item(list.getNextID(),name,"Special",quantity,sdf.parse(releaseDate),value);
+            list.add(sepcialItem);
+            System.out.println("Special item added successfully!");
+        } catch (ParseException e) {
+            System.out.println("Date format is incorrect.");
         }
     }
     
