@@ -5,6 +5,12 @@
 package com.mycompany.project;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -91,7 +97,7 @@ public class ItemList_View {
 
     }
 
-    public void displayList() {
+    public void displayList() {// Hiện thị danh sách món ăn
         System.out.println("----------Display list----------");
         System.out.println("| ID |   Name   |   Type   | Quantity | Release | Value |");
         for (Item i : list.getList()) {
@@ -99,38 +105,112 @@ public class ItemList_View {
         }
     }
 
-    public void deleted() {
+    public void deleted() {// Xoá món ăn theo tên
+        boolean found = false;
         System.out.println("Input name to deleted one item in menu(Must fully name and correct): ");
         String check = DataInput.inputString();
         for (Item i : list.getList()) {
-            if (check.equals(i.getName())) {
+            if (i.getName().equals(check)) {
+                found = true;
                 list.getList().remove(i);
+                break;
             }
+        }
+        
+        if(!found){
+            System.out.println("Can't found to deleted");
         }
     }
 
-    public void searchMenu() {
+    public void searchMenu() {// Tìm món ăn theo tên 
+        boolean found = false;
         System.out.println("Input name to show up item in menu: ");
         String check = DataInput.inputString();
         for (Item i : list.getList()) {
-            if (check.contains(i.getName())) {
+            if (i.getName().contains(check)) {
+                found = true;
                 System.out.println(i);
             }
         }
+        
+        if(!found){
+            System.out.println("Can't found!");
+        }
     }
 
-    public void showValuey() {
+        public void showValuey() {// Hiện thị giá món ăn do người tự chọn
+        boolean found = false;
         System.out.println("Input value you want to show up item in menu: ");
         int check = DataInput.inputInt();
         for (Item i : list.getList()) {
             if (i.getValue() < check && i.getValue() > 0) {
+                found = true;
                 System.out.println(i);
             }
         }
-    } // Hiện thị giá món ăn do người tự chọn
+        if(!found){
+            System.out.println("Can't found");
+        }
+    } 
 
+    public void update(){
+        
+    }
+        
     public void sortValue() {
         Collections.sort(list.getList());
     }
+    
+    public void saveFileStream(String file){ // lưu file dưới dạng Binary
+        SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
+        try(DataOutputStream dataOut = new DataOutputStream(new FileOutputStream("item.dat"))){
+            for(Item i:list.getList()){
+                dataOut.writeUTF(String.valueOf(i.getIDItem())+","+i.getName()+","+i.getType()+","+String.valueOf(i.getQuantity())+","+String.valueOf(SDF.format(i.getRelease()))+","+String.valueOf(i.getValue()));      
+            }
+            System.out.println("Save completed!");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ItemList_View.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ItemList_View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void loadFileStream(){ // mở file dưới dạng Binary
+        SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
+        try(DataInputStream dataIn = new DataInputStream(new FileInputStream("item.dat"))){
+            String line;
+            list.getList().clear();
+            int count = 0;
+            try{
+                while((line = dataIn.readUTF()) != null){
+                    String[] part = line.split(",");
 
+                    if(part.length == 6){
+                        int ID = Integer.parseInt(part[0]);
+                        String name = part[1];
+                        String type = part[2];
+                        int Quan = Integer.parseInt(part[3]);
+                        Date date;
+                        try{
+                            date = SDF.parse(part[4]);
+                        } catch(ParseException e){
+                            continue;
+                        }
+                        int value = Integer.parseInt(part[5]);
+                        Item i = new Item(ID,name,type,Quan,date,value);
+                        list.getList().add(i);
+                        count += 1;
+                    }
+
+
+                }
+            } catch (EOFException ex){}
+            
+            System.out.println("Load "+count+" thing completed!");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ItemList_View.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ItemList_View.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
