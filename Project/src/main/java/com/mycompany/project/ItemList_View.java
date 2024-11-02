@@ -96,7 +96,21 @@ public class ItemList_View {
             }
         }
     } // Hiện thị giá món ăn do người tự chọn
-    
+    public void showItemsAboveValue(){
+        System.out.println("Input the minimum price to show items above that value: ");
+        int minValue = DataInput.inputInt();
+        for(Item i : list.getList()){
+            if(i.getValue() > minValue){
+                System.out.println(i);
+            }
+        }
+    }
+  public void sortAndDisplayByDescendingValue(){
+        list.getList().sort(Comparator.comparingInt(Item::getValue).reversed());
+        System.out.println("Menu sorted by value (high to low):");
+        displayList();
+    }
+}
     public void sortValue(){
         
 //        Collections.sort(list.getList());
