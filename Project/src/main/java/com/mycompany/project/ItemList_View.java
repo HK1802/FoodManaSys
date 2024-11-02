@@ -53,8 +53,6 @@ public class ItemList_View {
                         type = part[2];
                     } else if (part[2].equals("Drink")) {
                         type = part[2];
-                    } else if (part[2].equals("Combo")){
-                        type = part[2];
                     }else {
                         System.out.println("Invalid type!");
                         continue;
@@ -94,7 +92,57 @@ public class ItemList_View {
     }
 
     public void add() {
-
+        SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
+        SDF.setLenient(false);
+        System.out.print("Input new ID: ");
+        int ID = 0;
+        for(Item i: list.getList()){
+            ID = DataInput.inputInt();
+            if(ID == i.getIDItem()){
+                System.out.println("There same ID, input another!");
+                continue;
+            }
+            
+            break;
+        }
+        
+        System.out.print("Input new Name food: ");
+        String name = DataInput.inputString();
+        
+        System.out.print("Input type(Fast Food,Drink,Special) and must correct input: ");
+        String type;
+        while(true){
+            type = DataInput.inputString();
+            if(type.equals("Fast Food") || type.equals("Drink") || type.equals("Special")){
+                break;
+            }
+            else{
+                System.out.print("Input wrong, please input again!\nInput: ");
+            }
+        }
+        
+        System.out.print("Input new quanity: ");
+        int quan = DataInput.inputInt();
+        
+        System.out.print("Input Release date: ");
+        
+        Date release;
+        while(true){
+            try{
+                String temp = DataInput.inputString();
+                release = SDF.parse(temp);
+                break;
+            } catch(ParseException e){
+                System.out.print("Input wrong, please try again!\nInput: ");
+            }
+        }
+        
+        System.out.print("Input new value: ");
+        int value = DataInput.inputInt();
+        
+        Item item = new Item(ID,name,type,quan,release,value);
+        list.getList().add(item);
+        
     }
 
     public void displayList() {// Hiện thị danh sách món ăn
