@@ -80,50 +80,75 @@ public class ItemList_View {
         
 //        Collections.sort(list.getList());
     }
-    public void updatePriceById() {
-    int itemId = -1;
-    boolean validInput = false;
+    public void updateItemById() {
+    System.out.println("Input ID of the item you want to update: ");
+    int idToUpdate = DataInput.inputInt();
+    Item itemToUpdate = null;
 
-    // Loop until a valid integer is provided
-    while (!validInput) {
-        System.out.println("Input the ID of the item to update its price: ");
-        try {
-            itemId = DataInput.inputInt(); // Assume this method reads an int input
-            validInput = true; // If we reach here, input was valid
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input! Please enter a valid integer for the item ID.");
-        }
-    }
-
-    // Now we have a valid itemId, we can search for the item
-    boolean found = false;
+    // Find the item by ID
     for (Item item : list.getList()) {
-        if (item.getId() == itemId) {
-            found = true; // Item found
-            System.out.println("Current price of " + item.getName() + " is: " + item.getValue());
-            System.out.println("Enter new price: ");
-            int newPrice = -1;
-            validInput = false;
-
-            // Loop until a valid integer is provided for the new price
-            while (!validInput) {
-                try {
-                    newPrice = DataInput.inputInt(); // Assume this method reads an int input
-                    validInput = true; // If we reach here, input was valid
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid input! Please enter a valid integer for the new price.");
-                }
-            }
-
-            // Update the price
-            item.setValue(newPrice);
-            System.out.println("Price updated successfully!");
-            break; // Exit the loop after updating
+        if (item.getId() == idToUpdate) {
+            itemToUpdate = item;
+            break;
         }
     }
 
-    if (!found) {
-        System.out.println("Item with ID " + itemId + " not found.");
+    if (itemToUpdate == null) {
+        System.out.println("Item with ID " + idToUpdate + " not found.");
+        return;
     }
+
+    // Update item's information
+    System.out.println("Current information: " + itemToUpdate);
+    
+    System.out.println("Enter new name (leave blank to keep current): ");
+    String newName = DataInput.inputString();
+    if (!newName.isEmpty()) {
+        itemToUpdate.setName(newName);
+    }
+
+    System.out.println("Enter new type (leave blank to keep current): ");
+    String newType = DataInput.inputString();
+    if (!newType.isEmpty() && (newType.equals("Fast Food") || newType.equals("Special") || newType.equals("Drink") || newType.equals("Combo"))) {
+        itemToUpdate.setType(newType);
+    }
+
+    System.out.println("Enter new quantity (leave blank to keep current): ");
+    String newQuantityStr = DataInput.inputString();
+    if (!newQuantityStr.isEmpty()) {
+        try {
+            int newQuantity = Integer.parseInt(newQuantityStr);
+            itemToUpdate.setQuantity(newQuantity);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid quantity input. Keeping current value.");
+        }
+    }
+
+    System.out.println("Enter new release date (dd-MM-yyyy) (leave blank to keep current): ");
+    String newReleaseDateStr = DataInput.inputString();
+    if (!newReleaseDateStr.isEmpty()) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        sdf.setLenient(false);
+        try {
+            Date newReleaseDate = sdf.parse(newReleaseDateStr);
+            itemToUpdate.setRelease(newReleaseDate);
+        } catch (ParseException e) {
+            System.out.println("Invalid date format. Keeping current value.");
+        }
+    }
+
+    System.out.println("Enter new value (leave blank to keep current): ");
+    String newValueStr = DataInput.inputString();
+    if (!newValueStr.isEmpty()) {
+        try {
+            int newValue = Integer.parseInt(newValueStr);
+            itemToUpdate.setValue(newValue);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid value input. Keeping current value.");
+        }
+    }
+
+    System.out.println("Item updated successfully: " + itemToUpdate);
+}
 }
     
