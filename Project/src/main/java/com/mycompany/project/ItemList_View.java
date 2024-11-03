@@ -54,11 +54,10 @@ public class ItemList_View {
                         type = part[2];
                     } else if (part[2].equals("Drink")) {
                         type = part[2];
-                    }else {
+                    } else {
                         System.out.println("Invalid type!");
                         continue;
                     }
-                    
 
                     int quan;
                     try {
@@ -97,63 +96,60 @@ public class ItemList_View {
         SDF.setLenient(false);
         System.out.print("Input new ID: ");
         int ID = 0;
-        
-        while(true){
+
+        while (true) {
             boolean foundID = false;
             ID = DataInput.inputInt(); //ID sẽ input vô đây
-            for(Item i: list.getList()){    // Tìm xem có bị trùng ID ko       
-                if(ID == i.getIDItem()){
+            for (Item i : list.getList()) {    // Tìm xem có bị trùng ID ko       
+                if (ID == i.getIDItem()) {
                     foundID = true;
                     break;
                 }
             }
-            
-            if(foundID){    // Nếu có, nhập lại
+
+            if (foundID) {    // Nếu có, nhập lại
                 System.out.println("There same ID, input another!");
                 continue;   // Dòng lệnh ngăn không thực hiện dòng lệnh dưới
             }
-                      
+
             break; // phá vòng lặp while
         }
-        
-        
+
         System.out.print("Input new Name food: ");
         String name = DataInput.inputString();
-        
+
         System.out.print("Input type(Fast Food,Drink,Special) and must correct input: ");
         String type;
-        while(true){
+        while (true) {
             type = DataInput.inputString();
-            if(type.equals("Fast Food") || type.equals("Drink") || type.equals("Special")){
+            if (type.equals("Fast Food") || type.equals("Drink") || type.equals("Special")) {
                 break;
-            }
-            else{
+            } else {
                 System.out.print("Input wrong, please input again!\nInput: ");
             }
         }
-        
+
         System.out.print("Input new quanity: ");
         int quan = DataInput.inputInt();
-        
+
         System.out.print("Input Release date: ");
-        
         Date release;
-        while(true){
-            try{
+        while (true) {
+            try {
                 String temp = DataInput.inputString();
                 release = SDF.parse(temp);
                 break;
-            } catch(ParseException e){
+            } catch (ParseException e) {
                 System.out.print("Input wrong, please try again!\nInput: ");
             }
         }
-        
+
         System.out.print("Input new value: ");
         int value = DataInput.inputInt();
-        
-        Item item = new Item(ID,name,type,quan,release,value);
+
+        Item item = new Item(ID, name, type, quan, release, value);
         list.getList().add(item);
-        
+
     }
 
     public void displayList() {// Hiện thị danh sách món ăn
@@ -176,8 +172,8 @@ public class ItemList_View {
                 break;
             }
         }
-        
-        if(!found){
+
+        if (!found) {
             System.out.println("Can't found to deleted");
         }
     }
@@ -192,13 +188,13 @@ public class ItemList_View {
                 System.out.println(i);
             }
         }
-        
-        if(!found){
+
+        if (!found) {
             System.out.println("Can't found!");
         }
     }
 
-        public void showValuey() {// Hiện thị giá món ăn do người tự chọn
+    public void showValuey() {// Hiện thị giá món ăn do người tự chọn
         boolean found = false;
         System.out.println("Input value you want to show up under value you input in menu: ");
         int check = DataInput.inputInt();
@@ -208,32 +204,114 @@ public class ItemList_View {
                 System.out.println(i);
             }
         }
-        if(!found){
+        if (!found) {
             System.out.println("Can't found");
         }
-    } 
-
-    public void update(){
-        
     }
-       
-    
-    public void sortAndDisplayByDescendingValue(){
+
+    public void updateItemByID() {
+        SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
+        SDF.setLenient(false);
+        System.out.println("Input ID of the item you want to update: ");
+        boolean found = false;
+        int checkID = DataInput.inputInt();
+        for (Item item : list.getList()) {
+            if (item.getIDItem() == checkID) {
+                found = true;
+            }
+        }
+        if (found) {
+            String[] subOption = {
+                "Update Name, Quanity, Type, Release and value",
+                "Update Quanity",
+                "update Value",};
+            Menu subMenu = new Menu("Update Item List", subOption) {
+                @Override
+                public void execute(int n) {
+                    switch (n) {
+                        case 1:
+                            for (Item item : list.getList()) {
+                                if (item.getIDItem() == checkID) {
+
+                                    System.out.print("Input new name: ");
+                                    item.setName(DataInput.inputString());
+
+                                    System.out.print("Input new Quanity: ");
+                                    item.setQuantity(DataInput.inputInt());
+
+                                    System.out.print("Input type(Fast Food,Drink,Special) and must correct input: ");
+                                    String type;
+                                    while (true) {
+                                        type = DataInput.inputString();
+                                        if (type.equals("Fast Food") || type.equals("Drink") || type.equals("Special")) {
+                                            break;
+                                        } else {
+                                            System.out.print("Input wrong, please input again!\nInput: ");
+                                        }
+                                    }
+                                    item.setType(type);
+
+                                    System.out.print("Input Release date: ");
+                                    Date release;
+                                    while (true) {
+                                        try {
+                                            String temp = DataInput.inputString();
+                                            release = SDF.parse(temp);
+                                            break;
+                                        } catch (ParseException e) {
+                                            System.out.print("Input wrong, please try again!\nInput: ");
+                                        }
+                                    }
+                                    item.setRelease(release);
+
+                                    System.out.print("Input new value: ");
+                                    item.setValue(DataInput.inputInt());
+                                    return;
+                                }
+                            }
+                            break;
+                        case 2:
+                            for(Item item : list.getList()){
+                                if(item.getIDItem() == checkID){
+                                    System.out.print("Input new Quanity: ");
+                                    item.setQuantity(DataInput.inputInt());
+                                    return;
+                                }
+                            }
+                            break;
+                        case 3:
+                            for(Item item : list.getList()){
+                                if(item.getIDItem() == checkID){
+                                    System.out.print("Input new value: ");
+                                    item.setValue(DataInput.inputInt());
+                                    return;
+                                }
+                            }
+                            break;
+
+                    }
+                }
+            };
+            subMenu.run();
+        } else {
+            System.out.println("Can't found or exist");
+        }
+    }
+
+    public void sortAndDisplayByDescendingValue() {
         list.getList().sort(Comparator.comparingInt(Item::getValue).reversed());
         System.out.println("Menu sorted by value (high to low):");
         displayList();
     }
-    
-    
+
 //    public void sortValue() {
 //        Collections.sort(list.getList());
 //    }
-    
-    public void saveFileStream(String file){ // lưu file dưới dạng Binary
+    public void saveFileStream(String file) { // lưu file dưới dạng Binary
         SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
-        try(DataOutputStream dataOut = new DataOutputStream(new FileOutputStream("item.dat"))){
-            for(Item i:list.getList()){
-                dataOut.writeUTF(String.valueOf(i.getIDItem())+","+i.getName()+","+i.getType()+","+String.valueOf(i.getQuantity())+","+String.valueOf(SDF.format(i.getRelease()))+","+String.valueOf(i.getValue()));      
+        try (DataOutputStream dataOut = new DataOutputStream(new FileOutputStream("item.dat"))) {
+            for (Item i : list.getList()) {
+                dataOut.writeUTF(String.valueOf(i.getIDItem()) + "," + i.getName() + "," + i.getType() + "," + String.valueOf(i.getQuantity()) + "," + String.valueOf(SDF.format(i.getRelease())) + "," + String.valueOf(i.getValue()));
             }
             System.out.println("Save completed!");
         } catch (FileNotFoundException ex) {
@@ -242,39 +320,39 @@ public class ItemList_View {
             Logger.getLogger(ItemList_View.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void loadFileStream(){ // mở file dưới dạng Binary
+
+    public void loadFileStream() { // mở file dưới dạng Binary
         SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
-        try(DataInputStream dataIn = new DataInputStream(new FileInputStream("item.dat"))){
+        try (DataInputStream dataIn = new DataInputStream(new FileInputStream("item.dat"))) {
             String line;
             list.getList().clear();
             int count = 0;
-            try{
-                while((line = dataIn.readUTF()) != null){
+            try {
+                while ((line = dataIn.readUTF()) != null) {
                     String[] part = line.split(",");
 
-                    if(part.length == 6){
+                    if (part.length == 6) {
                         int ID = Integer.parseInt(part[0]);
                         String name = part[1];
                         String type = part[2];
                         int Quan = Integer.parseInt(part[3]);
                         Date date;
-                        try{
+                        try {
                             date = SDF.parse(part[4]);
-                        } catch(ParseException e){
+                        } catch (ParseException e) {
                             continue;
                         }
                         int value = Integer.parseInt(part[5]);
-                        Item i = new Item(ID,name,type,Quan,date,value);
+                        Item i = new Item(ID, name, type, Quan, date, value);
                         list.getList().add(i);
                         count += 1;
                     }
 
-
                 }
-            } catch (EOFException ex){}
-            
-            System.out.println("Load "+count+" thing completed!");
+            } catch (EOFException ex) {
+            }
+
+            System.out.println("Load " + count + " thing completed!");
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ItemList_View.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
