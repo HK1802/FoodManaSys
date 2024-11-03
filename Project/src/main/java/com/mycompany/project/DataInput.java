@@ -25,11 +25,11 @@ public class DataInput {
         }        
     }
     
-    public static int inputInt(){ // Dùng để sửa lỗi integer mà nhập string
+    public static int inputInt(){ // Dùng để sửa lỗi integer mà nhập string và ngăn nhập số 0.
         Scanner sc = new Scanner(System.in);
         while(true){
             try{
-                int input = Integer.parseInt(sc.nextLine());
+                int input = Integer.parseInt(sc.nextLine());               
                 return input;
             } catch(NumberFormatException e){
                 System.out.print("Only input number and not leave empty!\nInput again: ");

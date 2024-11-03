@@ -18,7 +18,10 @@ public class ItemManagement {
             "Search food by name", 
             "Search food by value you choose", 
             "Update food in menu by using Name or ID",
-            "Deleted one food in menu"};
+            "Deleted one food in menu",
+            "Save file data under Binary",
+            "Load file data under Binary",
+            "sort and display"};
         Menu menu = new Menu("Management Menu", option){
             @Override
             public void execute(int n){
@@ -35,8 +38,20 @@ public class ItemManagement {
                     case 4:
                         ILV.showValuey();
                         break;
+                    case 5:
+                        ILV.update();
+                        break;
                     case 6:
                         ILV.deleted();
+                        break;
+                    case 7:
+                        ILV.saveFileStream(file);
+                        break;
+                    case 8:
+                        ILV.loadFileStream();
+                        break;
+                    case 9:
+                        ILV.sortAndDisplayByDescendingValue();
                         break;
                 }
             }
