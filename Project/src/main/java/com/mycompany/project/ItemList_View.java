@@ -91,20 +91,30 @@ public class ItemList_View {
         }
     }
 
-    public void add() {
+    public void add() { // thêm món mới vô menu + DataInput sẽ khắc phục lỗi nhập string và int
         SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
         SDF.setLenient(false);
         System.out.print("Input new ID: ");
         int ID = 0;
-        for(Item i: list.getList()){
-            ID = DataInput.inputInt();
-            if(ID == i.getIDItem()){
-                System.out.println("There same ID, input another!");
-                continue;
+        
+        while(true){
+            boolean foundID = false;
+            ID = DataInput.inputInt(); //ID sẽ input vô đây
+            for(Item i: list.getList()){    // Tìm xem có bị trùng ID ko       
+                if(ID == i.getIDItem()){
+                    foundID = true;
+                    break;
+                }
             }
             
-            break;
+            if(foundID){    // Nếu có, nhập lại
+                System.out.println("There same ID, input another!");
+                continue;   // Dòng lệnh ngăn không thực hiện dòng lệnh dưới
+            }
+                      
+            break; // phá vòng lặp while
         }
+        
         
         System.out.print("Input new Name food: ");
         String name = DataInput.inputString();
@@ -161,6 +171,7 @@ public class ItemList_View {
             if (i.getName().equals(check)) {
                 found = true;
                 list.getList().remove(i);
+                System.out.println("Deleted completed");
                 break;
             }
         }
@@ -188,7 +199,7 @@ public class ItemList_View {
 
         public void showValuey() {// Hiện thị giá món ăn do người tự chọn
         boolean found = false;
-        System.out.println("Input value you want to show up item in menu: ");
+        System.out.println("Input value you want to show up under value you input in menu: ");
         int check = DataInput.inputInt();
         for (Item i : list.getList()) {
             if (i.getValue() < check && i.getValue() > 0) {
