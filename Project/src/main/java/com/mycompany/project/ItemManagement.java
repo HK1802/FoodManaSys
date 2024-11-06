@@ -12,7 +12,7 @@ public class ItemManagement {
 
     public static void main(String[] args) {
         ItemList_View ILV = new ItemList_View();
-        String file = "D:\\NetBeansProjects\\Project\\src\\main\\java\\com\\mycompany\\project\\item.txt";
+        String file = "item.txt";
         ILV.loadFile(file);
         String[] option = {"Display list",//1
             "Add item into menu",
